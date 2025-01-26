@@ -113,3 +113,47 @@ ORDER BY
   month /* ASC */;
 
 /* ASC aqui é redundante */
+/* Contando valores não nulos de uma coluna */
+SELECT
+  COUNT(snow_depth) as counter_snow_depth_not_null
+from
+  STATION_DATA;
+
+/* Calculando a média da temperatura com AVG (average), esse valor poderia ser arredondado com round */
+SELECT
+  month,
+  AVG(temperature) as avg_temp
+FROM
+  STATION_DATA
+WHERE
+  year >= 2000
+GROUP BY
+  month;
+
+/* Calculando a soma de valores com SUM */
+SELECT
+  year,
+  SUM(snow_depth) as sum_snow_depth
+FROM
+  STATION_DATA
+WHERE
+  year >= 2000
+GROUP BY
+  year;
+
+/* Utilizando HAVING para filtrar agregações, o que o WHERE não faz */
+SELECT
+  year,
+  SUM(precipitation) as sum_precipitation
+FROM
+  STATION_DATA
+GROUP BY
+  year
+HAVING
+  sum_precipitation > 30;
+
+/* Selecionando registros únicos (distintos) com DISTINCT */
+SELECT DISTINCT
+  station_number
+FROM
+  STATION_DATA;
